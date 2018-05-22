@@ -10,9 +10,9 @@
   <span>
     <label>Priority</label>
     <select>
-      <option value="volvo">High</option>
-      <option value="saab">Medium</option>
-      <option value="mercedes">Low</option>
+      <option value="high">High</option>
+      <option value="medium">Medium</option>
+      <option value="low">Low</option>
     </select>
   </span>
   <span>
@@ -20,7 +20,7 @@
       Add task
     </button>
   </span>
-  <table class="table table-hover">
+  <table>
     <thead>
       <tr>
         <td>S No.</td>
@@ -40,16 +40,13 @@
     <tbody>
       <tr *ngFor="let task of (taskState|async).tasks;let i = index; trackBy:i">
         <td>{{i+1}}</td>
-        <td *ngIf="!write" (click)="write=true">{{ task.name }}</td>
-        <td *ngIf="write">
-          <input tabindex="-1" type="text" (onBlur)="write=false" [value]="task.name">
-        </td>
+        <td>{{ task.name }}</td>
         <td>{{task.description}}</td>
         <td>
           <select>
-            <option value="volvo">High</option>
-            <option value="saab">Medium</option>
-            <option value="mercedes">Low</option>
+            <option value="high">High</option>
+            <option value="medium">Medium</option>
+            <option value="low">Low</option>
           </select>
         </td>
         <td>{{task.lastUpdated|date:'full'}}</td>
