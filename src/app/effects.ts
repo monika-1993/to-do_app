@@ -2,7 +2,7 @@ import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
-import {exhaustMap, map, mergeMap, catchError} from 'rxjs/operators';
+import { exhaustMap, map, mergeMap, catchError } from 'rxjs/operators';
 
 import { TaskService } from './services/task.service';
 import { AppState } from './app.state';
@@ -19,15 +19,16 @@ export class TodoEffects {
 
   @Effect()
   public init$ = this.action$
-  .ofType(TodoActions.LOAD_TASK)
-  .pipe(
-    mergeMap( action => {
+    .ofType(TodoActions.LOAD_TASK)
+    .pipe(
+      mergeMap(action => {
         return Observable.of(this.service.getTasks()).pipe(
-        map(res => {
-          return new TodoActions.LoadTaskSuccessful(res)}),
-        catchError(error => Observable.of(new TodoActions.LoadTaskFailed())));
+          map(res => {
+            return new TodoActions.LoadTaskSuccessful(res);
+          }),
+          catchError(error => Observable.of(new TodoActions.LoadTaskFailed())));
       }
-    )
-);
+      )
+    );
 
 }
