@@ -1,0 +1,77 @@
+<div>
+  <span>
+    <label>Name</label>
+    <input type="text">
+  </span>
+  <span>
+    <label>Description</label>
+    <input type="text">
+  </span>
+  <span>
+    <label>Priority</label>
+    <select>
+      <option value="volvo">High</option>
+      <option value="saab">Medium</option>
+      <option value="mercedes">Low</option>
+    </select>
+  </span>
+  <span>
+    <button>
+      Add task
+    </button>
+  </span>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <td>S No.</td>
+        <td>Task name</td>
+        <td>Description</td>
+        <td>Priority</td>
+        <td>Last Updated</td>
+        <td>Status</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let task of (taskState|async).tasks;let i = index; trackBy:i">
+        <td>{{i+1}}</td>
+        <td *ngIf="!write" (click)="write=true">{{ task.name }}</td>
+        <td *ngIf="write">
+          <input tabindex="-1" type="text" (onBlur)="write=false" [value]="task.name">
+        </td>
+        <td>{{task.description}}</td>
+        <td>
+          <select>
+            <option value="volvo">High</option>
+            <option value="saab">Medium</option>
+            <option value="mercedes">Low</option>
+          </select>
+        </td>
+        <td>{{task.lastUpdated|date:'full'}}</td>
+        <td>
+          <input type="checkbox" name="status" value="true">
+        </td>
+        <td>
+          <button>Edit</button>
+        </td>
+        <td>
+          <button>Save</button>
+        </td>
+        <td>
+          <button>Delete</button>
+        </td>
+        <td>
+          <button (click)="showSubTask=true">Add/Edit Subtask</button>
+        </td>
+        <td>
+          <div *ngIf="showSubTask">subtask</div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
