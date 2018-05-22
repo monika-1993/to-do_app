@@ -1,3 +1,5 @@
+
+
 var express = require('express');
 var app = express();
 var taskRoutes = express.Router();
@@ -13,30 +15,34 @@ taskRoutes.route('/add').post(function (req, res) {
       res.status(200).json({ 'task': 'Task added successfully' });
     })
     .catch(err => {
+      console.log(err);
       res.status(400).send("unable to save to database");
     });
 });
 
 // Defined get route
-taskRoutes.route('/').get(function (req, res) {
-  Task.find(function (err, coins) {
+taskRoutes.route('/get').get(function (req, res) {
+  Task.find(function (err, tasks) {
     if (err) {
       console.log(err);
     }
     else {
-      res.json(coins);
+      res.json(tasks);
     }
   });
 });
 
 //  Defined update route
-taskRoutes.route('/update/:id').post(function (req, res) {
+taskRoutes.route('/update/:id').post(function (req, res, next) {
   Task.findById(req.params.id, function (err, task) {
     if (!task)
       return next(new Error('Could not load Document'));
     else {
       task.name = req.body.name;
-      task.price = req.body.price;
+      task.description = req.body.description;
+      task.isCompleted=req.body.isCompleted;
+      task.priority=req.body.priority;
+      task.subtasks=req.body.subtasks;
 
       task.save().then(task => {
         res.json('Update complete');

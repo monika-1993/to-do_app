@@ -6,14 +6,39 @@ export class TaskService {
 
   constructor(private http: HttpClient) { }
 
-  addTask(name, priority) {
+  addTask(taskObj) {
     const uri = 'http://localhost:4000/task/add';
-    const obj = {
-      name: name,
-      priority: priority
-    };
-    this.http.post(uri, obj)
-        .subscribe(res => console.log('Task added'));
+    this.http.post(uri, taskObj)
+      .subscribe(res => console.log('Task added'));
+  }
+
+  getTasks() {
+    const uri = 'http://localhost:4000/task/get';
+    return this
+      .http
+      .get(uri)
+      .subscribe(res => {
+        return res;
+      });
+  }
+
+  updateTask(id, taskObj) {
+    const uri = 'http://localhost:4000/task/update/' + id;
+    this
+      .http
+      .post(uri, taskObj)
+      .subscribe(res => console.log('Done'));
+  }
+
+  deleteCoin(id) {
+    const uri = 'http://localhost:4000/task/delete/' + id;
+
+    return this
+      .http
+      .get(uri)
+      .subscribe(res => {
+        return res;
+      });
   }
 
 }
