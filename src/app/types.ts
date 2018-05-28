@@ -1,18 +1,26 @@
-export interface Subtask {
-  id: number;
+import { Action as RxAction } from '@ngrx/store';
+
+export interface NewTask {
   name: string;
-  isCompleted: boolean;
-  lastUpdated: Date;
+  description?: string;
+  priority?: Priority;
 }
 
-export interface Task extends Subtask {
-  description?: string;
-  priority: Priority;
-  subtasks: Subtask[];
+export interface Task extends NewTask {
+  subtasks: Task[];
+  isEditing?: boolean;
+  isShowingSubtasks?: boolean;
+  _id?: any;
+  lastUpdated: Date;
+  isCompleted: boolean;
 }
 
 export enum Priority {
   high,
   medium,
   low,
-};
+}
+
+export interface ActionCustom extends RxAction {
+  payload: any;
+}

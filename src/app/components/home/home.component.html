@@ -1,25 +1,8 @@
 <div>
-  <span>
-    <label>Name</label>
-    <input type="text">
-  </span>
-  <span>
-    <label>Description</label>
-    <input type="text">
-  </span>
-  <span>
-    <label>Priority</label>
-    <select>
-      <option value="high">High</option>
-      <option value="medium">Medium</option>
-      <option value="low">Low</option>
-    </select>
-  </span>
-  <span>
-    <button (click)="onAdd(tasks[0])">
-      Add task
-    </button>
-  </span>
+  All Tasks
+</div>
+<div>
+  <add-task (onTaskAdd)="onAdd($event)"></add-task>
   <table>
     <thead>
       <tr>
@@ -32,42 +15,15 @@
         <td></td>
         <td></td>
         <td></td>
-        <td></td>
-        <td></td>
       </tr>
     </thead>
 
     <tbody>
       <tr *ngFor="let task of (taskState|async).tasks;let i = index; trackBy:i">
-        <td>{{i+1}}</td>
-        <td>{{ task.name }}</td>
-        <td>{{task.description}}</td>
-        <td>
-          <select>
-            <option value="high">High</option>
-            <option value="medium">Medium</option>
-            <option value="low">Low</option>
-          </select>
-        </td>
-        <td>{{task.lastUpdated|date:'full'}}</td>
-        <td>
-          <input type="checkbox" name="status" value="true">
-        </td>
-        <td>
-          <button>Edit</button>
-        </td>
-        <td>
-          <button>Save</button>
-        </td>
-        <td>
-          <button>Delete</button>
-        </td>
-        <td>
-          <button (click)="showSubTask=true">Add/Edit Subtask</button>
-        </td>
-        <td>
-          <div *ngIf="showSubTask">subtask</div>
-        </td>
+        <edit-task *ngIf="task.isEditing" [serialNumber]="i+1" [task]="task" (onSave)="onSaveEdited($event)"
+        (onCancelEdit)="onCancelEdit($event)"></edit-task>
+        <task *ngIf="!task.isEditing" [serialNumber]="i+1" [taskToDisplay]="task" (onClickEdit)="onEdit($event)"
+          (onDelete)="onDelete($event)" (onChangeStatus)="onSaveEdited($event)"></task>
       </tr>
     </tbody>
   </table>

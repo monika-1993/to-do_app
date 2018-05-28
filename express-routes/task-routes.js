@@ -1,5 +1,3 @@
-
-
 var express = require('express');
 var app = express();
 var taskRoutes = express.Router();
@@ -10,9 +8,12 @@ var Task = require('../models/tasks');
 // Defined store route
 taskRoutes.route('/add').post(function (req, res) {
   var task = new Task(req.body);
+  task.lastUpdated= new Date();
   task.save()
     .then(item => {
-      res.status(200).json({ 'task': 'Task added successfully' });
+      res.status(200).json({
+        task: item
+      });
     })
     .catch(err => {
       console.log(err);
@@ -25,8 +26,7 @@ taskRoutes.route('/get').get(function (req, res) {
   Task.find(function (err, tasks) {
     if (err) {
       console.log(err);
-    }
-    else {
+    } else {
       res.json(tasks);
     }
   });
@@ -40,13 +40,14 @@ taskRoutes.route('/update/:id').post(function (req, res, next) {
     else {
       task.name = req.body.name;
       task.description = req.body.description;
-      task.isCompleted=req.body.isCompleted;
-      task.priority=req.body.priority;
-      task.subtasks=req.body.subtasks;
-
+      task.isCompleted = req.body.isCompleted;
+      task.priority = req.body.priority;
+      task.subtasks = req.body.subtasks;
+      task.lastUpdated= new Date();
+      
       task.save().then(task => {
-        res.json('Update complete');
-      })
+          res.json(task);
+        })
         .catch(err => {
           res.status(400).send("unable to update the database");
         });
@@ -56,9 +57,13 @@ taskRoutes.route('/update/:id').post(function (req, res, next) {
 
 // Defined delete | remove | destroy route
 taskRoutes.route('/delete/:id').get(function (req, res) {
-  Task.findByIdAndRemove({ _id: req.params.id }, function (err, task) {
+  Task.findByIdAndRemove({
+    _id: req.params.id
+  }, function (err, task) {
     if (err) res.json(err);
-    else res.json('Successfully removed');
+    else res.json({
+      id: req.params.id
+    });
   });
 });
 

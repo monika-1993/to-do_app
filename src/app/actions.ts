@@ -23,17 +23,27 @@ export class AddTask implements Action {
   readonly type = ADD_TASK;
   constructor(public payload: Task) { }
 }
+export const ADD_TASK_SUCCESSFUL = 'ADD_TASK_SUCCESSFUL';
+export class AddTaskSuccessful implements Action {
+  readonly type = ADD_TASK_SUCCESSFUL;
+  constructor(public payload: any) { }
+}
+export const ADD_TASK_FAILED = 'ADD_TASK_FAILED';
+export class AddTaskFailed implements Action {
+  readonly type = ADD_TASK_FAILED;
+  constructor(public payload: any) { }
+}
 
 export const UPDATE_TASK = 'UPDATE_TASK';
 export class UpdateTask implements Action {
   readonly type = UPDATE_TASK;
-  constructor(public payload: Task) { }
+  constructor(public payload: any) { }
 }
 
 export const UPDATE_TASK_SUCCESSFUL = 'UPDATE_TASK_SUCCESSFUL';
 export class UpdateTaskSuccessful implements Action {
   readonly type = UPDATE_TASK_SUCCESSFUL;
-  constructor(public payload: Task) { }
+  constructor(public payload: any) { }
 }
 
 export const DELETE_TASK = 'DELETE_TASK';
@@ -48,4 +58,4 @@ export class DeleteTaskSuccessful implements Action {
   constructor(public payload: number) { }
 }
 
-export type Actions = LoadTaskSuccessful | AddTask | UpdateTask | DeleteTask | UpdateTaskSuccessful | DeleteTaskSuccessful;
+export type Actions = LoadTaskSuccessful | AddTaskSuccessful | UpdateTask | DeleteTask | UpdateTaskSuccessful | DeleteTaskSuccessful;

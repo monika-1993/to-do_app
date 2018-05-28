@@ -4,9 +4,9 @@ import { Injectable } from '@angular/core';
 import { Resolve } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
-import "rxjs/add/operator/take";
-import "rxjs/add/operator/map";
-import "rxjs/add/operator/mergeMap";
+import 'rxjs/add/operator/take';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/mergeMap';
 
 // import { mergeMap } from 'rxjs/operators';
 
@@ -24,7 +24,6 @@ export class HomeResolver implements Resolve<Observable<Task[]>> {
       .mergeMap(() =>
         this.store
           .take(1)
-          .map(() => this.store.select('tasks'))
-      );
+          .map(() => this.store.select('tasks')));
   }
 }

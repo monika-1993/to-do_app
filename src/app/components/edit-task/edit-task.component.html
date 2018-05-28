@@ -1,0 +1,25 @@
+<td>{{serialNumber}}</td>
+<td>
+  <input [(ngModel)]="task.name" (ngModelChange)="onEdit()" type="text">
+</td>
+<td>
+  <input [(ngModel)]="task.description" type="text" (ngModelChange)="onEdit()">
+</td>
+<td>
+  <select [(ngModel)]="task.priority" (ngModelChange)="onEdit()">
+    <option [value]="priority.high">High</option>
+    <option [value]="priority.medium">Medium</option>
+    <option [value]="priority.low">Low</option>
+  </select>
+</td>
+<td>{{task.lastUpdated|date:'full'}}</td>
+<td>
+  <input [(ngModel)]="task.isCompleted" (ngModelChange)="onEdit()" disabled="true" type="checkbox" name="status" value="true">
+</td>
+<td>
+  <button (click)="onSaveEdited()">Save</button>
+</td>
+
+<td>
+    <button (click)="onCancel()">Cancel</button>
+  </td>

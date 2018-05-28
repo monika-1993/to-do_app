@@ -1,0 +1,23 @@
+<div>
+  <span>
+    <label>Name</label>
+    <input required [(ngModel)]="task.name" type="text">
+  </span>
+  <span>
+    <label>Description</label>
+    <input [(ngModel)]="task.description" type="text">
+  </span>
+  <span>
+    <label>Priority</label>
+    <select [(ngModel)]="task.priority">
+      <option [value]="priority.high">High</option>
+      <option [value]="priority.medium">Medium</option>
+      <option [value]="priority.low">Low</option>
+    </select>
+  </span>
+  <span>
+    <button (click)="onAddingTask(task)">
+      Add task
+    </button>
+  </span>
+</div>

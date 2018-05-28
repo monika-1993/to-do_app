@@ -8,37 +8,29 @@ export class TaskService {
 
   addTask(taskObj) {
     const uri = 'http://localhost:4000/task/add';
-    this.http.post(uri, taskObj)
-      .subscribe(res => console.log('Task added'));
+    return this.http.post(uri, taskObj);
   }
 
   getTasks() {
     const uri = 'http://localhost:4000/task/get';
     return this
       .http
-      .get(uri)
-      .subscribe(res => {
-        return res;
-      });
+      .get(uri);
   }
 
-  updateTask(id, taskObj) {
-    const uri = 'http://localhost:4000/task/update/' + id;
-    this
+  updateTask(taskObj) {
+    const uri = 'http://localhost:4000/task/update/' + taskObj._id;
+    return this
       .http
-      .post(uri, taskObj)
-      .subscribe(res => console.log('Done'));
+      .post(uri, taskObj);
   }
 
-  deleteCoin(id) {
+  deleteTask(id) {
     const uri = 'http://localhost:4000/task/delete/' + id;
 
     return this
       .http
-      .get(uri)
-      .subscribe(res => {
-        return res;
-      });
+      .get(uri);
   }
 
 }

@@ -1,12 +1,19 @@
 import { Routes } from '@angular/router';
 
 import { HomeComponent } from './components/home/home.component';
+import { SubTaskComponent } from './components/sub-task/sub-task.component';
 import { HomeResolver } from './components/home/home.resolver';
 
 export const appRoutes: Routes = [
   {
     path: '',
-    component: HomeComponent,
-    resolve: { message: HomeResolver }
+    redirectTo: 'id/null',
+    pathMatch: 'full'
   },
+  {
+    path: 'id/:id',
+    component: HomeComponent,
+    resolve: { message: HomeResolver },
+  }
+
 ];
