@@ -25,7 +25,6 @@ export class EditTaskComponent {
   }
 
   public onCancel() {
-    console.log('cncel');
     this.onCancelEdit.emit(this.task);
   }
 }

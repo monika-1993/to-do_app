@@ -31,7 +31,7 @@ export class AddTaskSuccessful implements Action {
 export const ADD_TASK_FAILED = 'ADD_TASK_FAILED';
 export class AddTaskFailed implements Action {
   readonly type = ADD_TASK_FAILED;
-  constructor(public payload: any) { }
+  constructor() { }
 }
 
 export const UPDATE_TASK = 'UPDATE_TASK';
@@ -49,6 +49,12 @@ export class UpdateTaskSuccessful implements Action {
   constructor(public payload: any) { }
 }
 
+export const UPDATE_TASK_FAILED = 'UPDATE_TASK_FAILED';
+export class UpdateTaskFailed implements Action {
+  readonly type = UPDATE_TASK_FAILED;
+  constructor() { }
+}
+
 export const DELETE_TASK = 'DELETE_TASK';
 export class DeleteTask implements Action {
   readonly type = DELETE_TASK;
@@ -61,4 +67,12 @@ export class DeleteTaskSuccessful implements Action {
   constructor(public payload: number) { }
 }
 
-export type Actions = LoadTaskSuccessful | AddTaskSuccessful | UpdateTask | DeleteTask | UpdateTaskSuccessful | DeleteTaskSuccessful;
+export const DELETE_TASK_FAILED = 'DELETE_TASK_FAILED';
+export class DeleteTaskFailed implements Action {
+  readonly type = DELETE_TASK_FAILED;
+  constructor() { }
+}
+
+export type Actions = 
+LoadTask| LoadTaskFailed| AddTask | AddTaskFailed | UpdateTaskFailed| DeleteTaskFailed|
+LoadTaskSuccessful | AddTaskSuccessful | UpdateTask | DeleteTask | UpdateTaskSuccessful | DeleteTaskSuccessful;

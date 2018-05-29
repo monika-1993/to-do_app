@@ -15,19 +15,21 @@ export class TaskComponent {
   @Output() onChangeStatus = new EventEmitter<Task>();
 
   public onClickEditEmit() {
-    console.log(this.taskToDisplay);
     this.onClickEdit.emit(this.taskToDisplay);
   }
-
-  // public onViewSubtaskEmit() {
-  //   this.store.go
-  // }
 
   public onDeleteEmit() {
     this.onDelete.emit(this.taskToDisplay._id);
   }
 
   public onChangeStatusEmit() {
+    if (this.taskToDisplay.subtasks.length) {
+      const incompleteSubtask = this.taskToDisplay.subtasks.find(s => s.isCompleted === false);
+      if (incompleteSubtask) {
+        alert('You cannot mark a task as complete till all subtasks are done');
+        return;
+      }
+    }
     this.onChangeStatus.emit(this.taskToDisplay);
   }
 

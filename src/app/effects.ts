@@ -26,7 +26,12 @@ export class TodoEffects {
       switchMap(() => {
         return this.service.getTasks().pipe(
           map(tasks => {
-            return new TodoActions.LoadTaskSuccessful(tasks);
+            if (tasks) {
+              return new TodoActions.LoadTaskSuccessful(tasks);
+            } else {
+              alert('Sorry, your tasks could not be updated. Try again !');
+              return new TodoActions.LoadTaskFailed();
+            }
           }),
         );
       })
@@ -39,7 +44,12 @@ export class TodoEffects {
       switchMap((action) => {
         return this.service.addTask(removeBeforePost((action as ActionCustom).payload)).pipe(
           map(response => {
-            return new TodoActions.AddTaskSuccessful((response as any).task);
+            if (response) {
+              return new TodoActions.AddTaskSuccessful((response as any).task);
+            } else {
+              alert('Sorry, your tasks could not be updated. Try again !');
+              return new TodoActions.AddTaskFailed();
+            }
           }),
         );
       })
@@ -49,13 +59,14 @@ export class TodoEffects {
     .ofType(TodoActions.UPDATE_TASK)
     .pipe(
       switchMap(action => {
-        console.log((action as ActionCustom).payload);
         return this.service.updateTask(removeBeforePost((action as ActionCustom).payload.task),
           (action as ActionCustom).payload.type).pipe(
             map(response => {
               if (response) {
-                console.log(response, 'res');
                 return new TodoActions.UpdateTaskSuccessful(response);
+              } else {
+                alert('Sorry, your tasks could not be updated. Try again !');
+                return new TodoActions.UpdateTaskFailed();
               }
             }),
         );

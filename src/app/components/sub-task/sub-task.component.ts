@@ -21,11 +21,8 @@ export class SubTaskComponent implements OnInit {
   ngOnInit() {
     this.route.params.take(1).subscribe(param => this.taskId = param.id);
     this.taskState = this.store.select(s => s.tasks);
-    this.taskState.subscribe(t => {
-      this.tasks = t.tasks.filter(tas => tas._id === this.taskId);
-      console.log(this.taskId, t, this.tasks);
-    }
-    );
+    this.taskState.subscribe(t =>
+      this.tasks = t.tasks.filter(tas => tas._id === this.taskId));
   }
 
 }

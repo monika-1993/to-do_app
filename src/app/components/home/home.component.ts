@@ -36,14 +36,9 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.taskState = this.store.select(s => s.tasks);
-    this.taskState.subscribe(t => {
-      console.log(t);
-    });
-
     this.route.params.subscribe(param => {
       this.taskId = param.id;
       this.taskType = this.taskId === 'all' ? TaskType.task : TaskType.subtask;
-      this.taskState = this.store.select(s => s.tasks);
       this.taskState.subscribe(t => {
         if (param.id !== 'all') {
           this.parentTask = (t.tasks.filter(tas => tas._id === param.id)[0] as Task);
@@ -67,14 +62,15 @@ export class HomeComponent implements OnInit {
           payload
         });
         break;
-      case (TaskType.subtask): {
-        this.parentTask.subtasks.push(payload);
-        this.store.dispatch({
-          type: TodoActions.UPDATE_TASK,
-          payload: { task: this.parentTask, type: TaskType.subtask }
-        });
-        break;
-      }
+      case (TaskType.subtask):
+        {
+          this.parentTask.subtasks = this.parentTask.subtasks ? [...this.parentTask.subtasks, payload] : [payload];
+          this.store.dispatch({
+            type: TodoActions.UPDATE_TASK,
+            payload: { task: this.parentTask, type: TaskType.subtask }
+          });
+          break;
+        }
     }
   }
 
@@ -95,7 +91,6 @@ export class HomeComponent implements OnInit {
         break;
       }
     }
-    console.log(this.tasks);
   }
 
   onDelete(payload: string) {
@@ -120,11 +115,9 @@ export class HomeComponent implements OnInit {
       }
     }
 
-    console.log(this.tasks);
   }
 
   onEdit(task: Task) {
-    console.log('is editi');
     task.isEditing = true;
   }
 
@@ -138,7 +131,6 @@ export class HomeComponent implements OnInit {
   }
 
   onSort(sortOption: SortOptions) {
-    console.log('in sort', SortOptions.nameAscending, sortOption);
     switch (+sortOption) {
       case (SortOptions.nameAscending):
         this.tasks = sortBy(this.tasks, (task) => task.name);

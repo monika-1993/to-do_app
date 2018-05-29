@@ -1,4 +1,3 @@
-
 <div style="padding: 20px; text-align-last: right">
   <input [(ngModel)]="text" />
   <button (click)="onSearch(text)">Search by name</button>
@@ -13,8 +12,8 @@
 </div>
 <div>
   <add-task (onTaskAdd)="onAdd($event)" style="padding: 20px; text-align-last: center;"></add-task>
-  <table >
-    <caption >
+  <table>
+    <caption>
       <tr>
         <td>S No.</td>
         <td>Task name</td>
@@ -37,3 +36,4 @@
     </tbody>
   </table>
 </div>
+<h3 *ngIf="(taskState|async).isLoading" style="color: red">Loading....</h3>
