@@ -7,7 +7,7 @@ import { HomeResolver } from './components/home/home.resolver';
 export const appRoutes: Routes = [
   {
     path: '',
-    redirectTo: 'id/null',
+    redirectTo: 'id/all',
     pathMatch: 'full'
   },
   {

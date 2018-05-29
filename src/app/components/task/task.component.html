@@ -1,20 +1,22 @@
-<td>{{serialNumber}}</td>
-<td>{{ taskToDisplay.name }}</td>
+<div>
+  <td>{{serialNumber}}</td>
+  <td>{{ taskToDisplay.name }}</td>
 
-<td>{{taskToDisplay.description}}</td>
+  <td>{{taskToDisplay.description}}</td>
 
-<td>{{taskToDisplay.priority}}</td>
+  <td>{{taskToDisplay.priority}}</td>
 
-<td>{{taskToDisplay.lastUpdated|date:'full'}}</td>
-<td>
-  <input [(ngModel)]="taskToDisplay.isCompleted" (ngModelChange)="onChangeStatusEmit()" type="checkbox" name="status" value="true">
-</td>
-<td>
-  <button (click)="onClickEditEmit()">Edit</button>
-</td>
-<td>
-  <button (click)="onDeleteEmit(taskToDisplay._id)">Delete</button>
-</td>
-<td>
-  <button (click)="onViewSubtaskEmit()">Add/Edit Subtask</button>
-</td>
+  <td>{{taskToDisplay.lastUpdated|date:'full'}}</td>
+  <td>
+    <input [(ngModel)]="taskToDisplay.isCompleted" (ngModelChange)="onChangeStatusEmit()" type="checkbox" name="status" value="true">
+  </td>
+  <td>
+    <button (click)="onClickEditEmit()">Edit</button>
+  </td>
+  <td>
+    <button (click)="onDeleteEmit(taskToDisplay._id)">Delete</button>
+  </td>
+  <td>
+    <a href="/id/{{taskToDisplay._id}}">Add/Edit Subtask</a>
+  </td>
+</div>

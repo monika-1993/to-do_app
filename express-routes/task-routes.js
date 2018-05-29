@@ -1,6 +1,7 @@
 var express = require('express');
 var app = express();
 var taskRoutes = express.Router();
+var mongoose= require('mongoose');
 
 // Require Item model in our routes module
 var Task = require('../models/tasks');
@@ -8,7 +9,7 @@ var Task = require('../models/tasks');
 // Defined store route
 taskRoutes.route('/add').post(function (req, res) {
   var task = new Task(req.body);
-  task.lastUpdated= new Date();
+  task.lastUpdated = new Date();
   task.save()
     .then(item => {
       res.status(200).json({
@@ -33,7 +34,7 @@ taskRoutes.route('/get').get(function (req, res) {
 });
 
 //  Defined update route
-taskRoutes.route('/update/:id').post(function (req, res, next) {
+taskRoutes.route('/update/:taskType/:id').post(function (req, res, next) {
   Task.findById(req.params.id, function (err, task) {
     if (!task)
       return next(new Error('Could not load Document'));
@@ -43,8 +44,14 @@ taskRoutes.route('/update/:id').post(function (req, res, next) {
       task.isCompleted = req.body.isCompleted;
       task.priority = req.body.priority;
       task.subtasks = req.body.subtasks;
-      task.lastUpdated= new Date();
-      
+      task.lastUpdated = new Date();
+      if (req.params.taskType === 'subtask') {
+        task.subtasks.forEach(element => {
+          if (!element._id) {
+            element._id =  mongoose.Types.ObjectId();
+          }
+        });
+      }
       task.save().then(task => {
           res.json(task);
         })

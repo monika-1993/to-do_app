@@ -15,12 +15,13 @@ export class TaskComponent {
   @Output() onChangeStatus = new EventEmitter<Task>();
 
   public onClickEditEmit() {
+    console.log(this.taskToDisplay);
     this.onClickEdit.emit(this.taskToDisplay);
   }
 
-  public onViewSubtaskEmit() {
-    this.onViewSubtask.emit(this.taskToDisplay);
-  }
+  // public onViewSubtaskEmit() {
+  //   this.store.go
+  // }
 
   public onDeleteEmit() {
     this.onDelete.emit(this.taskToDisplay._id);

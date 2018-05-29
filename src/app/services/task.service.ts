@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
+import { TaskType } from '../types';
+
 @Injectable()
 export class TaskService {
 
@@ -18,11 +20,11 @@ export class TaskService {
       .get(uri);
   }
 
-  updateTask(taskObj) {
-    const uri = 'http://localhost:4000/task/update/' + taskObj._id;
+  updateTask(task, type) {
+    const uri = 'http://localhost:4000/task/update/' + type + '/' + task._id;
     return this
       .http
-      .post(uri, taskObj);
+      .post(uri, task);
   }
 
   deleteTask(id) {

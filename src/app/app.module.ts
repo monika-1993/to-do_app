@@ -5,7 +5,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule, Effect } from '@ngrx/effects';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRouteSnapshot } from '@angular/router';
 
 import { HomeComponent } from './components/home/home.component';
 import { HomeResolver } from './components/home/home.resolver';

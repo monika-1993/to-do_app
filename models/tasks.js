@@ -10,7 +10,7 @@ let Task = new Schema({
     type: String
   },
   priority: {
-    type: Number
+    type: String
   },
   description:{
     type: String

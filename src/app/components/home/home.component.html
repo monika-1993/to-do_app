@@ -1,10 +1,20 @@
-<div>
-  All Tasks
+
+<div style="padding: 20px; text-align-last: right">
+  <input [(ngModel)]="text" />
+  <button (click)="onSearch(text)">Search by name</button>
+  <button (click)="onSearchCancel()"> Remove search</button>
+  <select [(ngModel)]=sortCriteria>
+    <option [value]="sort.nameAscending">Name ascending</option>
+    <option [value]="sort.nameDescending">Name descending</option>
+    <option [value]="sort.priorityAscending">Priority Ascending</option>
+    <option [value]="sort.priorityDescending">Priority descending</option>
+  </select>
+  <button (click)="onSort(sortCriteria)">Sort</button>
 </div>
 <div>
-  <add-task (onTaskAdd)="onAdd($event)"></add-task>
-  <table>
-    <thead>
+  <add-task (onTaskAdd)="onAdd($event)" style="padding: 20px; text-align-last: center;"></add-task>
+  <table >
+    <caption >
       <tr>
         <td>S No.</td>
         <td>Task name</td>
@@ -16,14 +26,13 @@
         <td></td>
         <td></td>
       </tr>
-    </thead>
+    </caption>
 
-    <tbody>
-      <tr *ngFor="let task of (taskState|async).tasks;let i = index; trackBy:i">
-        <edit-task *ngIf="task.isEditing" [serialNumber]="i+1" [task]="task" (onSave)="onSaveEdited($event)"
-        (onCancelEdit)="onCancelEdit($event)"></edit-task>
-        <task *ngIf="!task.isEditing" [serialNumber]="i+1" [taskToDisplay]="task" (onClickEdit)="onEdit($event)"
-          (onDelete)="onDelete($event)" (onChangeStatus)="onSaveEdited($event)"></task>
+    <tbody style="width:100%;table-layout:fixed">
+      <tr *ngFor="let task of tasks;let i = index; trackBy:i">
+        <edit-task *ngIf="task.isEditing" [serialNumber]="i+1" [task]="task" (onSave)="onSave($event)" (onCancelEdit)="onCancelEdit($event)"></edit-task>
+        <task *ngIf="!task.isEditing" [serialNumber]="i+1" [taskToDisplay]="task" (onClickEdit)="onEdit($event)" (onDelete)="onDelete($event)"
+          (onChangeStatus)="onSave($event)"></task>
       </tr>
     </tbody>
   </table>

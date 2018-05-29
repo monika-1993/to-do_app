@@ -1,3 +1,4 @@
+import { Task } from './types';
 import { Action as RxAction } from '@ngrx/store';
 
 export interface NewTask {
@@ -16,9 +17,21 @@ export interface Task extends NewTask {
 }
 
 export enum Priority {
-  high,
-  medium,
-  low,
+  high = 'High',
+  medium = 'Medium',
+  low = 'Low'
+}
+
+export enum TaskType {
+  task = 'task',
+  subtask = 'subtask'
+}
+
+export enum SortOptions {
+  nameAscending,
+  nameDescending,
+  priorityAscending,
+  priorityDescending
 }
 
 export interface ActionCustom extends RxAction {

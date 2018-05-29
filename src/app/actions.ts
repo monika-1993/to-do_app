@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { Task } from './types';
+import { Task, TaskType } from './types';
 
 export const LOAD_TASK = 'LOAD_TASK';
 export class LoadTask implements Action {
@@ -37,7 +37,10 @@ export class AddTaskFailed implements Action {
 export const UPDATE_TASK = 'UPDATE_TASK';
 export class UpdateTask implements Action {
   readonly type = UPDATE_TASK;
-  constructor(public payload: any) { }
+  constructor(public payload: {
+    task: Task,
+    type: TaskType
+  }) { }
 }
 
 export const UPDATE_TASK_SUCCESSFUL = 'UPDATE_TASK_SUCCESSFUL';
